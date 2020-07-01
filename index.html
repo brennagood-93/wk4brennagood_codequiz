@@ -22,30 +22,23 @@
         <article class = "active" id= "startPage">
             <h2> Wine-O Quiz</h2>
             <p> Do you rose' all day? Take the below quiz to find out</p>
-            <button class = "startButton" id = "startButton"></button>
-            <img src="" alt="" class="img-fluid">
+            <button class = "startButton" id = "startButton"> Start </button>
+            <img src="photos/wineGlasses.jpg" alt="starting glasses" class="img-fluid">
 
         </article>
     <!-- seperate div for question content -->
-        <article> class="questionContent" id="questionPage">
+        <article class="questionContent" id="questionPage">
 
 
         
     <!-- each question is a heading with 4 buttons beneath it
      use js to replace text in heading and buttons eath time any answer is selecten-->
      <h2 id="questionSpace"> Question Text</h2>
-        <ul>
-            <li><button class = "answerButton" id = "answerButton1"> Answer</button></li>
-            <li><button class = "answerButton" id = "answerButton2"> Answer</button></li>
-            <li><button class = "answerButton" id = "answerButton3"> Answer</button></li>
-            <li><button class = "answerButton" id = "answerButton4"> Answer</button></li>
-
-        
-        </ul>
+        <ul id = answersList></ul>
     
     </article>
-     <!-- separate dive for results page -->
-     <article> class="resultsPage" id="resultsPage">
+     <!-- separate div for results page -->
+     <article class= "resultsPage" id="resultsPage">
         <h2> You finished!</h2>
         <p>Your final score is: <span id = "finalScore"></span></p>
         <form>
@@ -53,19 +46,28 @@
 
             </label>
             <input type="text" name="initials" id="initials">
-            <button>Submit</button>
+        
+            <button id = "scoreSubmit">Submit</button>
+            <img src="photos/wineBottles.jpg" alt="bottles" class="img-fluid">
         </form>
 
      </article>
     <!-- hiscores page -->
-        <article> class ="highScoreResults" id="highScoreResults">
-            <ul>
+        <article class ="highScoreResults" id="highScoreResults">
+            <ul id = "scoresList">
 
             
             </ul>
             <button class="goBack" id="goBack">Go Back</button>
             <button class="clearScore" id="clearScore"> Clear Highscore</button>
-            <img src="" alt="" class="img-fluid">
+            <img src="photos/winePour.jpg" alt="finishing pour" class="img-fluid">
+        </article>
+    <!-- Times up, failed page -->
+        <article id = "failedPage">
+            <h2> You failed! Time is up.</h2>
+            <p> Thanks for playing! Please try again.</p>
+            <button class="restart" id="restart"> Hit to Play again </button>
+            <img src="photos/ferrellWine.png" alt="Will Ferrell Fail" class="img-fluid">
         </article>
 
             </section>
@@ -74,6 +76,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="script.js"></script>
 </body>
 </html>
 

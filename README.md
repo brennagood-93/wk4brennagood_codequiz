@@ -2,4 +2,6 @@
 
 Create a quiz
 A quiz about what? = Wine! 
-First create html to show different sections
+Highscores stored to local storage is in progress
+Screenshots of site unavailable -
+The entire quiz loads when you arrive at the website, no re-directs or refreshing required. 

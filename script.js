@@ -1,61 +1,157 @@
-//change display type for div holding content, start timer
-    const startQuiz = document.querySelector("#startButton");
-    const timeLeft = document.querySelector("#timeLeft");
-    const startPage - document.querySelector("#startPage")
-    const questions = document.querySelector("#questionPage");
-        let secondsLeft = 60;
-        function setTime() {
-            const timerInterval = setInterval(function() {
-              secondsLeft--;
-              timeEl.textContent = secondsLeft
+// variables for page
+const startQuiz = document.querySelector("#startButton");
+const timeLeft = document.querySelector("#timeLeft");
+const startPage = document.querySelector("#startPage")
+const questions = document.querySelector("#questionPage");
+const results = document.querySelector("#resultsPage");
+const failedPage = document.querySelector("#failedPage");
+const questionSpace = document.querySelector("#questionSpace");
+const answersList = document.querySelector("#answersList");
+const answerList = document.querySelector("#scoresList")
+const scoreText = document.querySelector("#finalScore");
+const scoreSubmit = document.querySelector("#scoreSubmit");
+const initials = document.querySelector("#initials");
+const highScoreResults = document.querySelector("#highScoreResults");
+const highscore = document.querySelector("#highscore");
+const goBack = document.querySelector("#goBack");
 
-              if(secondsLeft === 0) {
-                clearInterval(timerInterval);
-                sendMessage();
-              }
+// The questions that will be asked in the quiz
+const questionText = ["What wine pairs best with Beef Sirloin?",
+    "What fruit is wine typically made from?",
+    "What is the standard amount in most wine bottles?",
+    "Which country in the world has the largest area of vineyards?"];
 
-          
-            }, 1000);
-        }
-    startQuiz.addEventListener("click", function() {
-        event.preventDefault();
-        setTime();
-        questions.setAttribute("class", "active");
-        startPage.removeAttribute("class")
-    
-    
-    })
+// This is the answers the user will be given a choice from
+const questAns = [
+    ["Cabernet Sauvignon", "Rose", "Chardonnay", "Pinot Noir"],
+    ["Berries", "Grapes", "Oranges", "Mangos"],
+    ["250 millilitres", "500 millilitres", "750 millilitres", "1 litres"],
+    ["France", "Austrailia", "Italy", "Spain"]
+];
+// This shows which answer is correct in the above array
+const correctAns = [
+    ["correct", "incorrect", "incorrect", "incorrect"],
+    ["incorrect", "correct", "incorrect", "incorrect"],
+    ["incorrect", "incorrect", "correct", "incorrect"],
+    ["incorrect", "incorrect", "incorrect", "correct"]
+];
 
-//function changing the question / answer text to the next question when each question is answered
-//event listenter that pertains to all answer buttons that runs funcion a (changes to next question)
-    //by changing the textContent for the question space and ansewr content
-//last question changes class of master divs to hide question space and show results screen
-const questionText = ["question 1", "question 2", "question 3", "question 4"]
-const q1Answer = ["answer 1", "answer 2", "answer 3", "answer 4"]
-const q2Answer = ["answer 1", "answer 2", "answer 3", "answer 4"]
-const q3Answer = ["answer 1", "answer 2", "answer 3", "answer 4"]
-const q4Answer = ["answer 1", "answer 2", "answer 3", "answer 4"]
 
+
+
+
+// Time of quiz is 60 seconds
+let secondsLeft = 60;
+// send message if timer runs out
+const sendMessage = function () {
+    timeLeft.textContent = "Time is up!";
+    questions.removeAttribute("class");
+    failedPage.setAttribute("class", "active");
+
+
+}
+// Starts the timer
+const timerInterval = setInterval(setTime, 1000);
+function setTime() {
+    secondsLeft--;
+    timeLeft.textContent = secondsLeft
+
+    if (secondsLeft <= 0) {
+        clearInterval(timerInterval);
+        sendMessage();
+    }
+
+
+}
+
+// shows the score is how much time is left when finished
 let = currentQuestion = 0;
 
-const questionSpace = document.querySelector("questionSpace");
-const answer = document.querySelector("answerButton");
-answer.querySelector("click", function {
-    currentQuestion++;
-    questionSpace.textContent(questionText[currentQuestion]);
+// const questionSpace = document.querySelector("#questionSpace");
 
 
+// When user clicks start, triggers timer and updates text on question page with whats in question array
+startQuiz.addEventListener("click", function () {
+    event.preventDefault();
+    setTime();
+    questions.setAttribute("class", "active");
+    startPage.removeAttribute("class");
+    nextQ();
+})
+
+// This replaces all question/answer text with the next question in the quiz
+const nextQ = function () {
+    answersList.innerHTML = "";
+    questionSpace.textContent = questionText[currentQuestion];
+    for (let i = 0; i < questAns[currentQuestion].length; i++) {
+        let answerSpace = document.createElement("li");
+        let answerBtn = document.createElement("button");
+        answerBtn.textContent = questAns[currentQuestion][i];
+        answerBtn.setAttribute("value", correctAns[currentQuestion][i]);
+        answerSpace.appendChild(answerBtn);
+        answersList.appendChild(answerSpace);
+    }
+}
+// This is the event listener that indicates if they clicked the right answer, if they answer wrong the seconds decrease
+answersList.addEventListener("click", function (event) {
+    if (currentQuestion === 3) {
+        if (event.target.matches("button") && event.target.value === "incorrect") {
+            secondsLeft -= 4;
+            clearInterval(timerInterval);
+            questions.removeAttribute("class");
+            results.setAttribute("class", "active");
+            scoreText.textContent = secondsLeft;
+        } else {
+            clearInterval(timerInterval);
+            questions.removeAttribute("class");
+            results.setAttribute("class", "active");
+            scoreText.textContent = secondsLeft;
+        }
+    } else if (event.target.matches("button") && event.target.value === "incorrect") {
+        secondsLeft -= 4;
+        currentQuestion++;
+        nextQ();
+    } else {
+        currentQuestion++;
+        nextQ();
+        
+    }
+})
+
+
+
+
+//when user submits initials, run a funtion that adds the score to the local storage (doesn't work)
+const initialsValue = initials.value 
+scoreSubmit.addEventListener("click", function () {
+    localStorage.setItem("highScores", initialsValue + secondsLeft)
+})
+
+//get the data from local storage to show the scores in a list
+
+
+
+
+highscore.addEventListener("click", function () {
+    startPage.removeAttribute("class");
+    questions.removeAttribute("class");
+    results.removeAttribute("class");
+    highScoreResults.setAttribute("class", "active");
 
 })
-//function keeping score
-//runs if correct answer is clicked; 
-    //if statements to add to a scoce variable as the test continues
-//when last answer is clicked 
-//when user submits initials, run a funtion that adds the score to the local storage
-//get the data from local storage to show the scores in a list
-Collapse
+goBack.addEventListener("click", function () {
+    highScoreResults.removeAttribute("class");
+    startPage.setAttribute("class", "active");
 
-
+})
+// portion to restart quiz if they run out of time
+const restart = document.querySelector("#restart")
+restart.addEventListener("click", function () {
+    clearInterval(timeLeft);
+    let secondsLeft = 60;
+    failedPage.removeAttribute("class");
+    startPage.setAttribute("class", "active");
+})
 
 
 
